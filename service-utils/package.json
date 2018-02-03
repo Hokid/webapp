@@ -1,0 +1,16 @@
+{
+  "name": "@hokid/webapp-service-utils",
+  "version": "0.0.1",
+  "description": "set of utils",
+  "main": "index.js",
+  "files": [
+    "logger.js"
+  ],
+  "author": "Kirill Horoshilov <mr.hokid@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/Hokid/webapp.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hokid/webapp.git"
+  }
+}

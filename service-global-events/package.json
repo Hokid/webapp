@@ -1,0 +1,13 @@
+{
+  "name": "@hokid/webapp-service-global-events",
+  "version": "0.0.1",
+  "description": "global events",
+  "main": "index.js",
+  "author": "Kirill Horoshilov <mr.hokid@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/Hokid/webapp.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hokid/webapp.git"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@hokid/package-auto-configuration-core",
+  "version": "0.0.2",
+  "description": "package configuration core",
+  "main": "index.js",
+  "author": "Kirill Horoshilov <mr.hokid@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/Hokid/webapp.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hokid/webapp.git"
+  }
+}

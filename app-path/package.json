@@ -1,0 +1,13 @@
+{
+  "name": "@hokid/app-path",
+  "version": "0.0.1",
+  "description": "Get app path where npm install exec",
+  "main": "index.js",
+  "author": "Kirill Horoshilov <mr.hokid@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/Hokid/webapp.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hokid/webapp.git"
+  }
+}
