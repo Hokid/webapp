@@ -1,6 +1,6 @@
 {
   "name": "@hokid/app-path",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Get app path where npm install exec",
   "main": "index.js",
   "author": "Kirill Horoshilov <mr.hokid@gmail.com>",

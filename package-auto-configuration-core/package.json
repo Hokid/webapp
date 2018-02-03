@@ -1,6 +1,6 @@
 {
   "name": "@hokid/package-auto-configuration-core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "package configuration core",
   "main": "index.js",
   "author": "Kirill Horoshilov <mr.hokid@gmail.com>",

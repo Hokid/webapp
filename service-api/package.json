@@ -1,6 +1,6 @@
 {
   "name": "@hokid/webapp-service-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Universal api module based on axios",
   "main": "index.js",
   "scripts": {
@@ -9,9 +9,9 @@
   "author": "Kirill Horoshilov <mr.hokid@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@hokid/app-path": "0.0.1",
-    "@hokid/babel-auto-configuration-core": "0.0.1",
-    "@hokid/package-auto-configuration-core": "0.0.1"
+    "@hokid/app-path": "latest",
+    "@hokid/babel-auto-configuration-core": "latest",
+    "@hokid/package-auto-configuration-core": "latest"
   },
   "homepage": "https://github.com/Hokid/webapp.git",
   "repository": {
