@@ -5,6 +5,7 @@ const COLORS = {
   background: #f51717;
   font-size: 12px;
   font-weight: 900;
+  border-radius: 3px;
   padding: 1px;`,
 
   info: `
@@ -12,6 +13,7 @@ const COLORS = {
   background: #f59417;
   font-size: 12px;
   font-weight: 900;
+  border-radius: 3px;
   padding: 1px;`,
 
   warn: `
@@ -19,6 +21,15 @@ const COLORS = {
   background: blu;
   font-size: 12px;
   font-weight: 900;
+  border-radius: 3px;
+  padding: 1px`,
+
+  success: `
+  color: #fff;
+  background: #89bf04;
+  font-size: 12px;
+  font-weight: 900;
+  border-radius: 3px;
   padding: 1px`
 };
 
