@@ -1,151 +1,239 @@
 // @flow
 import axios from 'axios';
-import merge from 'lodash/merge';
+import cloneDeep from 'lodash/cloneDeep';
 import GlobalEvents from '@hokid/webapp-service-global-events';
 import logIt from '@hokid/webapp-service-utils/logger';
 
-let CancelToken = axios.CancelToken;
-let beforeHooks = [];
-let afterHooks = [];
-const axiosInst = axios.create({
-  baseURL: '/api' // process.env.API_URL
-});
+const TAG = 'webapp:service-api';
+let uid = 0;
 
-function prepareForRequest(data, fields) {
-  return merge({}, { data }, fields);
-}
+export class ApiService {
+  uid: number;
+  CancelToken: any;
+  client: Object;
+  beforeHooks: Array<Function>;
+  afterHooks: Array<Function>;
+  devDebug: boolean;
+  emitEvents: boolean;
+  hooks: boolean;
 
-function callHook(name, data) {
-  switch (name) {
-    case 'before':
-      return beforeHooks.reduce((data, cb) => {
-        return cb(data);
-      }, data);
-    case 'after':
-      return afterHooks.reduce((data, cb) => {
-        return cb(data);
-      }, data);
-  }
-}
-
-export class API {
-  axios: any = null;
-
-  constructor(): void {
-    this.axios = axiosInst;
+  constructor (options): void {
+    this.uid = uid++;
+    this.baseUrl = typeof options.base === 'string' ? options.base : '/api';
+    this.beforeHooks = [];
+    this.afterHooks = [];
+    this.CancelToken = axios.CancelToken;
+    this.setOptions(options);
+    this.client = axios.create({
+      baseURL: this.baseUrl
+    });
   }
 
-  request(url: string, data: any, options: any): any {
-    let _options = merge({}, options);
-    let cancel;
-    const dataProps = options.method === 'get' ? 'params' : 'data';
+  setOptions(options = {}) {
+    this.devDebug =
+      typeof options.devDebug === 'boolean' ? options.devDebug :
+        this.devDebug !== null ? this.devDebug : true;
+    this.emitEvents =
+      typeof options.emitEvents === 'boolean' ? options.emitEvents :
+        this.emitEvents !== null ? this.emitEvents : true;
+    this.hooks = typeof options.hooks === 'boolean' ? options.hooks :
+      this.hooks !== null ? this.hooks : true;
+  }
 
-    GlobalEvents.emit('api:request', { url, data, options });
+  client () {
+    return this.client;
+  }
 
-    if (data != null) {
-      data = callHook('before', data);
+  request (url: string, data: any, options: any = { method: 'get' }): any {
+    let optionsSnapshot = cloneDeep(options);
+    let dataSnapshot = cloneDeep(data);
+    let cancelMethod = function() {};
+
+    const dataProps = optionsSnapshot.method !== 'get' ? 'data' : 'params';
+
+    if (this.emitEvents) {
+      GlobalEvents.emit(`${TAG}:request`, cloneDeep({
+        url,
+        data: dataSnapshot,
+        options: optionsSnapshot
+      }));
     }
 
-    if (_options.cancelable === true) {
-      _options.cancelToken = new CancelToken((c) => {
-        cancel = c;
+    if (dataSnapshot != null && this.hooks) {
+      dataSnapshot = this.callHook('before', dataSnapshot);
+    }
+
+    if (optionsSnapshot.cancelable === true) {
+      optionsSnapshot.cancelToken = new this.CancelToken(c => {
+        cancelMethod = c;
       });
     }
 
-    const promise = this.axios.request(Object.assign(_options, { url, [dataProps]: data }))
-      .then((resp) => {
-        resp.data = callHook('after', resp.data.data);
+    if (this.devDebug) {
+      logIt({
+        tag: TAG,
+        style: 'info',
+        message: `requesting: ${url}`,
+        debug: {
+          url,
+          data: dataSnapshot,
+          options: optionsSnapshot
+        }
+      });
+    }
 
-        GlobalEvents.emit('api:response', resp);
-        logIt({
-          tag: 'Api',
-          style: 'info',
-          message: `Response from: ${url}`,
-          debug: resp
-        });
+    const promise = this.client().request(
+      Object.assign(optionsSnapshot, { url, [ dataProps ]: dataSnapshot }))
 
-        return Promise.resolve(resp);
+      .then((RS) => {
+        let rsData = RS.data;
+
+        if (this.hooks) {
+          this.callHook('after', );
+        }
+
+        if (this.emitEvents) {
+          GlobalEvents.emit(`${TAG}:response`, cloneDeep({
+            url,
+            response: RS,
+            data: rsData,
+            options: optionsSnapshot
+          }));
+        }
+
+        if (this.devDebug) {
+          logIt({
+            tag: TAG,
+            style: 'success',
+            message: `success request: ${url}`,
+            debug: {
+              url,
+              response: RS,
+              data: rsData,
+              options: optionsSnapshot
+            }
+          });
+        }
+
+        return Promise.resolve({ response: RS, data: rsData });
       })
-      .catch((err) => {
-        if (axios.isCancel(err)) {
-          err.isCancel = true;
-          return Promise.reject(err);
+      .catch((ERR) => {
+        let errData;
+
+        if (ERR.response && this.hooks) {
+          errData = this.callHook('after', ERR.response.data);
         }
 
-        // Если переданы данные
-        if (err.response) {
-          // Запуск хука after
-          err.response.data = callHook('after', err.response.data);
+        if (axios.isCancel(ERR)) {
+          ERR.isCancel = true;
+          return Promise.reject({ response: ERR, data: errData });
         }
 
-        // Генерируем событие
-        GlobalEvents.emit('api:error', err);
-        logIt({
-          tag: 'Api',
-          style: 'error',
-          message: `Response from: ${url}`,
-          debug: err
-        });
+        if (this.devDebug) {
+          logIt({
+            tag: 'Api',
+            style: 'error',
+            message: `error response: ${url}`,
+            debug: {
+              url,
+              response: ERR,
+              error: errData,
+              options: optionsSnapshot
+            }
+          });
+        }
 
-        return Promise.reject(err);
+        if (this.emitEvents) {
+          GlobalEvents.emit(`${TAG}:error`, cloneDeep({
+            url,
+            response: ERR,
+            error: errData,
+            options: optionsSnapshot
+          }));
+        }
+
+        return Promise.reject({ response: ERR, error: errData });
       });
-    if (_options.cancelable === true) {
-      return { promise, cancel };
+
+    if (optionsSnapshot.cancelable === true) {
+      return { promise, cancel: cancelMethod };
     } else {
       return promise;
     }
   }
 
-  get(url: string, data: any, options: any = {}) {
-    merge(options, { method: 'get' });
+  get (url: string, data: any, options: any = {}) {
+    Object.assign(options, { method: 'get' });
     return this.request(url, data, options);
   }
 
-  create(url: string, data: any, options: any = {}) {
-    merge(options, { method: 'post' });
+  post (url: string, data: any, options: any = {}) {
+    Object.assign(options, { method: 'post' });
     return this.request(url, data, options);
   }
 
-  update(url: string, data: any, options: any = {}) {
-    merge(options, { method: 'put' });
+  put (url: string, data: any, options: any = {}) {
+    Object.assign(options, { method: 'put' });
     return this.request(url, data, options);
   }
 
-  delete(url: string, data: any, options: any = {}) {
-    merge(options, { method: 'delete' });
+  delete (url: string, data: any, options: any = {}) {
+    Object.assign(options, { method: 'delete' });
     return this.request(url, data, options);
   }
 
-  exist(url: string, data: any, options: any = {}) {
-    merge(options, { method: 'head' });
+  head (url: string, data: any, options: any = {}) {
+    Object.assign(options, { method: 'head' });
     return this.request(url, data, options);
   }
 
-  addHook(name: string, cb: Function) {
+  patch (url: string, data: any, options: any = {}) {
+    Object.assign(options, { method: 'patch' });
+    return this.request(url, data, options);
+  }
+
+  options (url: string, data: any, options: any = {}) {
+    Object.assign(options, { method: 'options' });
+    return this.request(url, data, options);
+  }
+
+
+  addHook (name: string, cb: Function) {
     switch (name) {
       case 'before':
-        beforeHooks.push(cb);
+        this.beforeHooks.push(cb);
         break;
       case 'after':
-        afterHooks.push(cb);
+        this.afterHooks.push(cb);
         break;
     }
   }
 
-  removeHook(name: string, cb: Function) {
+  callHook (name, data) {
     switch (name) {
       case 'before':
-        beforeHooks = beforeHooks.filter((_cb) => {
+        return this.beforeHooks.reduce((data, cb) => {
+          return cb(data);
+        }, data);
+      case 'after':
+        return this.afterHooks.reduce((data, cb) => {
+          return cb(data);
+        }, data);
+    }
+  }
+
+  removeHook (name: string, cb: Function) {
+    switch (name) {
+      case 'before':
+        this.beforeHooks = this.beforeHooks.filter((_cb) => {
           return _cb !== cb;
         });
         break;
       case 'after':
-        afterHooks = afterHooks.filter((_cb) => {
+        this.afterHooks = this.afterHooks.filter((_cb) => {
           return _cb !== cb;
         });
         break;
     }
   }
 }
-
-export default new API();
