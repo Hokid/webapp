@@ -1,6 +1,9 @@
 const appPath = require('@hokid/app-path');
 const babelCfg = require('@hokid/babel-auto-configuration-core').BabelConfiguration;
 const packageCfg = require('@hokid/package-auto-configuration-core').PackageConfiguration;
+const gulp = require('gulp');
+const path = require('path');
+const replace = require('gulp-replace');
 
 const babelConfig = new babelCfg({
     path: appPath.get()
@@ -91,5 +94,32 @@ pakageConfig.setPackagesChecker(args => {
     });
 });
 
-babelConfig.run();
-pakageConfig.run();
+const templates = path.resolve(process.cwd(), './template');
+let dist = '';
+let base = '';
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('Enter base path for api service:', path => {
+  base = path ? path : 'api/';
+
+  rl.question('Enter api service destination:', path2 => {
+    dist = path2 ? path2 : 'src/services/';
+    rl.close();
+    run();
+  });
+});
+
+function run() {
+  gulp.src(`${templates}/**/*`)
+    .pipe(replace('{{ BASE_PATH }}', base))
+    .pipe(gulp.dest(path.resolve(appPath.get(), dist), { overwrite: false }));
+
+  babelConfig.run();
+  pakageConfig.run();
+}

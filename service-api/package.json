@@ -9,6 +9,8 @@
   "author": "Kirill Horoshilov <mr.hokid@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "gulp": "3.9.1",
+    "gulp-replace": "0.6.1",
     "@hokid/app-path": "latest",
     "@hokid/babel-auto-configuration-core": "latest",
     "@hokid/package-auto-configuration-core": "latest"
