@@ -1,6 +1,6 @@
 {
   "name": "@hokid/webapp-service-api",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "description": "Universal api module based on axios",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "gulp-replace": "0.6.1",
     "@hokid/app-path": "latest",
     "@hokid/babel-auto-configuration-core": "latest",
+    "@hokid/webapp-packages": "latest",
     "@hokid/package-auto-configuration-core": "latest"
   },
   "homepage": "https://github.com/Hokid/webapp.git",

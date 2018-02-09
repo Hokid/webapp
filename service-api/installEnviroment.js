@@ -1,9 +1,18 @@
 const appPath = require('@hokid/app-path');
+const webappPackages = require('@hokid/webapp-packages');
 const babelCfg = require('@hokid/babel-auto-configuration-core').BabelConfiguration;
 const packageCfg = require('@hokid/package-auto-configuration-core').PackageConfiguration;
 const gulp = require('gulp');
 const path = require('path');
 const replace = require('gulp-replace');
+
+const wPackages = new webappPackages({
+  path: appPath.get()
+});
+
+if (wPackages.has('service-api')) {
+  return;
+}
 
 const babelConfig = new babelCfg({
     path: appPath.get()
@@ -122,4 +131,7 @@ function run() {
 
   babelConfig.run();
   pakageConfig.run();
+  wPackages.resolvePackage();
+  wPackages.add('service-api');
+  wPackages.update();
 }
