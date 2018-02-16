@@ -36,7 +36,20 @@ const COLORS = {
 export default function (options = {}) {
   if (process.env.NODE_ENV !== 'production') {
     options = Object.assign({ timestamp: Date.now(), style: 'info' }, options);
-    console.info(`%c [${(options.tag || 'Unnamed')}]: ${(options.message || 'no message')}`, COLORS[options.style], options.debug);
+    const message = `%c [${(options.tag || 'Unnamed')}]: ${(options.message || 'no message')}`;
+    const styles = COLORS[options.style];
+    const args = [message];
+    const debug = options.debug;
+
+    if (styles) {
+      args.push(styles);
+    }
+
+    if (debug !== undefined) {
+      args.push(debug);
+    }
+
+    console.info.apply(console, args);
 
     if (options.trace) {
       if ('trace' in console) {
