@@ -32,12 +32,12 @@ export class ApiService {
   setOptions(options = {}) {
     this.devDebug =
       typeof options.devDebug === 'boolean' ? options.devDebug :
-        this.devDebug !== null ? this.devDebug : true;
+        this.devDebug != null ? this.devDebug : true;
     this.emitEvents =
       typeof options.emitEvents === 'boolean' ? options.emitEvents :
-        this.emitEvents !== null ? this.emitEvents : true;
+        this.emitEvents != null ? this.emitEvents : true;
     this.hooks = typeof options.hooks === 'boolean' ? options.hooks :
-      this.hooks !== null ? this.hooks : true;
+      this.hooks != null ? this.hooks : true;
   }
 
   request (url: string, data: any, options: any = { method: 'get' }): any {
