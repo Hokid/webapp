@@ -40,10 +40,6 @@ export class ApiService {
       this.hooks !== null ? this.hooks : true;
   }
 
-  client () {
-    return this.client;
-  }
-
   request (url: string, data: any, options: any = { method: 'get' }): any {
     let optionsSnapshot = cloneDeep(options);
     let dataSnapshot = cloneDeep(data);
@@ -82,14 +78,14 @@ export class ApiService {
       });
     }
 
-    const promise = this.client().request(
+    const promise = this.client.request(
       Object.assign(optionsSnapshot, { url, [ dataProps ]: dataSnapshot }))
 
       .then((RS) => {
         let rsData = RS.data;
 
         if (this.hooks) {
-          this.callHook('after', );
+          rsData = this.callHook('after', rsData);
         }
 
         if (this.emitEvents) {
