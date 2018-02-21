@@ -114,10 +114,10 @@ export class ApiService {
         return Promise.resolve({ response: RS, data: rsData });
       })
       .catch((ERR) => {
-        let errData;
+        let errData = ERR.response && ERR.response.data;
 
         if (ERR.response && this.hooks) {
-          errData = this.callHook('after', ERR.response.data);
+          errData = this.callHook('after', errData);
         }
 
         if (axios.isCancel(ERR)) {

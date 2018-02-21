@@ -1,6 +1,6 @@
 {
   "name": "@hokid/webapp-service-utils",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "set of utils",
   "main": "index.js",
   "files": [
