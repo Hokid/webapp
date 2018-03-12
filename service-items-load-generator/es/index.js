@@ -15,7 +15,7 @@ function () {
     _classCallCheck(this, ItemsLoadGenerator);
 
     this.options = Object.assign(defaults, options);
-    this.Api = new Api();
+    this.Api = Api;
   }
 
   _createClass(ItemsLoadGenerator, [{

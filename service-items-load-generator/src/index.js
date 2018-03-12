@@ -3,7 +3,7 @@ const defaults = { fetchCount: 5, limitCached: 5 };
 export default class ItemsLoadGenerator {
   constructor (Api, options) {
     this.options = Object.assign(defaults, options);
-    this.Api = new Api();
+    this.Api = Api;
   }
 
   async next () {
