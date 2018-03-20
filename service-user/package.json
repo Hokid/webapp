@@ -7,9 +7,11 @@
     "access": "public"
   },
   "module": "es/index.js",
+  "typings": "types/index.d.ts",
   "files": [
     "dist/",
-    "es/"
+    "es/",
+    "types/*"
   ],
   "scripts": {
     "build": "npm run build:commonjs && npm run build:es",

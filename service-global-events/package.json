@@ -1,13 +1,49 @@
 {
   "name": "@hokid/webapp-service-global-events",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "global events",
-  "main": "index.js",
+  "main": "commonjs/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "module": "es/index.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist/",
+    "es/",
+    "types/*"
+  ],
+  "scripts": {
+    "build": "npm run build:commonjs && npm run build:es",
+    "build:commonjs": "webpack",
+    "build:es": "babel ./src/ --out-dir es/"
+  },
   "author": "Kirill Horoshilov <mr.hokid@gmail.com>",
   "license": "ISC",
   "homepage": "https://github.com/Hokid/webapp.git",
   "repository": {
     "type": "git",
     "url": "https://github.com/Hokid/webapp.git"
+  },
+  "babel": {
+    "presets": [
+      "@hokid/webapp-standard"
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "dependencies": {
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/runtime": "^7.0.0-beta.40"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.40",
+    "@hokid/babel-preset-webapp-standard": "latest",
+    "babel-loader": "^8.0.0-beta.0",
+    "webpack": "^4.1.0",
+    "webpack-cli": "^2.0.10"
   }
 }
