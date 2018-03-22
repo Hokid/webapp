@@ -39,14 +39,14 @@ var moduleDef = {
     }
   }
 };
-export default function module(Store) {
+export default function module(Store, options) {
   var copy = clone(moduleDef);
   return function (extender) {
     if (typeof extender === 'function') {
       copy = extender(copy);
     }
 
-    Store.registerModule('user', copy);
+    Store.registerModule('user', copy, options);
     return Store;
   };
 }

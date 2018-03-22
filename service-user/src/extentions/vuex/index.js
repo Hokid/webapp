@@ -45,14 +45,14 @@ const moduleDef = {
   }
 };
 
-export default function module(Store) {
+export default function module(Store, options) {
   let copy = clone(moduleDef);
   return (extender) => {
     if (typeof extender === 'function') {
       copy = extender(copy);
     }
 
-    Store.registerModule('user', copy);
+    Store.registerModule('user', copy, options);
     return Store;
   };
 }
