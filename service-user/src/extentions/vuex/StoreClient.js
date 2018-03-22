@@ -16,6 +16,6 @@ export default class VuexStoreClient {
   }
 
   isAuth() {
-    return this.VuexStore.getters['user.isAuth'];
+    return this.VuexStore.getters['user/isAuth'];
   }
 }
