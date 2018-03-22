@@ -28,7 +28,7 @@ function () {
   }, {
     key: "isAuth",
     value: function isAuth() {
-      return this.VuexStore.getters['user.isAuth'];
+      return this.VuexStore.getters['user/isAuth'];
     }
   }]);
 
