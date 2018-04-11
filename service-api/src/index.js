@@ -2,7 +2,7 @@
 import axios from 'axios';
 import cloneDeep from 'lodash/cloneDeep';
 import GlobalEvents from '@hokid/webapp-service-global-events';
-import logIt from '@hokid/webapp-service-utils/logger';
+import { logger as logIt } from '@hokid/webapp-service-utils';
 
 const TAG = 'webapp:service-api';
 let uid = 0;
