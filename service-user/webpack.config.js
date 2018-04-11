@@ -6,7 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './commonjs'),
     filename: 'index.js',
-    library: 'ItemsLoadGenerator',
+    library: 'WebappServiceUser',
     libraryTarget: 'commonjs2'
   },
   externals: [
