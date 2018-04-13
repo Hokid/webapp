@@ -1,6 +1,6 @@
 {
   "name": "@hokid/webapp-service-api",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Universal api module based on axios",
   "main": "commonjs/index.js",
   "publishConfig": {

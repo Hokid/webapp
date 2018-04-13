@@ -36,7 +36,7 @@ export class ApiService {
         this.devDebug != null ? this.devDebug : true;
     this.emitEvents =
       typeof options.emitEvents === 'boolean'
-        && this.EventEmmiter
+        && this.EventEmitter
           ? options.emitEvents
           : false;
     this.hooks = typeof options.hooks === 'boolean' ? options.hooks :

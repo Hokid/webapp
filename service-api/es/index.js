@@ -85,7 +85,7 @@ function () {
     value: function setOptions() {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       this.devDebug = typeof options.devDebug === 'boolean' ? options.devDebug : this.devDebug != null ? this.devDebug : true;
-      this.emitEvents = typeof options.emitEvents === 'boolean' && this.EventEmmiter ? options.emitEvents : false;
+      this.emitEvents = typeof options.emitEvents === 'boolean' && this.EventEmitter ? options.emitEvents : false;
       this.hooks = typeof options.hooks === 'boolean' ? options.hooks : this.hooks != null ? this.hooks : true;
     }
   }, {
