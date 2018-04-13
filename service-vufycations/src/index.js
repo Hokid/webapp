@@ -5,11 +5,11 @@ let events;
 
 function initialize () {
   events.forEach((item) => {
-    EventEmitter.on(item.name, () => {
+    EventEmitter.on(item.name, (...args) => {
       let options;
 	
       if (typeof item.toast === 'function') {
-        options = item.toast(arguments);
+        options = item.toast.apply(null, args);
       } else {
 	options = item.toast;        
       }

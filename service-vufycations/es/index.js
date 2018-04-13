@@ -7,13 +7,16 @@ var defaultSettings;
 var events;
 
 function initialize() {
-  var _arguments = arguments;
   events.forEach(function (item) {
     EventEmitter.on(item.name, function () {
       var options;
 
       if (typeof item.toast === 'function') {
-        options = item.toast(_arguments);
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        options = item.toast.apply(null, args);
       } else {
         options = item.toast;
       }
