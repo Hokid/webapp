@@ -5,7 +5,6 @@ import _classCallCheck from "@babel/runtime/helpers/classCallCheck";
 import _createClass from "@babel/runtime/helpers/createClass";
 import axios from 'axios';
 import cloneDeep from 'lodash/cloneDeep';
-import GlobalEvents from '@hokid/webapp-service-global-events';
 import { logger as logIt } from '@hokid/webapp-service-utils';
 var TAG = 'webapp:service-api';
 var uid = 0;
@@ -63,8 +62,15 @@ function () {
       writable: true,
       value: void 0
     });
+    Object.defineProperty(this, "EventEmitter", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: void 0
+    });
     this.uid = uid++;
     this.baseUrl = typeof options.base === 'string' ? options.base : '/api';
+    this.EventEmitter = options.EventEmitterClient;
     this.beforeHooks = [];
     this.afterHooks = [];
     this.CancelToken = axios.CancelToken;
@@ -79,7 +85,7 @@ function () {
     value: function setOptions() {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       this.devDebug = typeof options.devDebug === 'boolean' ? options.devDebug : this.devDebug != null ? this.devDebug : true;
-      this.emitEvents = typeof options.emitEvents === 'boolean' ? options.emitEvents : this.emitEvents != null ? this.emitEvents : true;
+      this.emitEvents = typeof options.emitEvents === 'boolean' && this.EventEmmiter ? options.emitEvents : false;
       this.hooks = typeof options.hooks === 'boolean' ? options.hooks : this.hooks != null ? this.hooks : true;
     }
   }, {
@@ -98,7 +104,7 @@ function () {
       var dataProps = optionsSnapshot.method !== 'get' ? 'data' : 'params';
 
       if (this.emitEvents) {
-        GlobalEvents.emit("".concat(TAG, ":request"), cloneDeep({
+        this.EventEmitter.emit("".concat(TAG, ":request"), cloneDeep({
           url: url,
           data: dataSnapshot,
           options: optionsSnapshot
@@ -138,7 +144,7 @@ function () {
         }
 
         if (_this.emitEvents) {
-          GlobalEvents.emit("".concat(TAG, ":response"), cloneDeep({
+          _this.EventEmitter.emit("".concat(TAG, ":response"), cloneDeep({
             url: url,
             response: RS,
             data: rsData,
@@ -194,7 +200,7 @@ function () {
         }
 
         if (_this.emitEvents) {
-          GlobalEvents.emit("".concat(TAG, ":error"), cloneDeep({
+          _this.EventEmitter.emit("".concat(TAG, ":error"), cloneDeep({
             url: url,
             response: ERR,
             error: errData,

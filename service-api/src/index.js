@@ -1,7 +1,6 @@
 // @flow
 import axios from 'axios';
 import cloneDeep from 'lodash/cloneDeep';
-import GlobalEvents from '@hokid/webapp-service-global-events';
 import { logger as logIt } from '@hokid/webapp-service-utils';
 
 const TAG = 'webapp:service-api';
@@ -16,10 +15,12 @@ export class ApiService {
   devDebug: boolean;
   emitEvents: boolean;
   hooks: boolean;
+  EventEmitter: any;
 
   constructor (options): void {
     this.uid = uid++;
     this.baseUrl = typeof options.base === 'string' ? options.base : '/api';
+    this.EventEmitter = options.EventEmitterClient;
     this.beforeHooks = [];
     this.afterHooks = [];
     this.CancelToken = axios.CancelToken;
@@ -34,8 +35,10 @@ export class ApiService {
       typeof options.devDebug === 'boolean' ? options.devDebug :
         this.devDebug != null ? this.devDebug : true;
     this.emitEvents =
-      typeof options.emitEvents === 'boolean' ? options.emitEvents :
-        this.emitEvents != null ? this.emitEvents : true;
+      typeof options.emitEvents === 'boolean'
+        && this.EventEmmiter
+          ? options.emitEvents
+          : false;
     this.hooks = typeof options.hooks === 'boolean' ? options.hooks :
       this.hooks != null ? this.hooks : true;
   }
@@ -48,7 +51,7 @@ export class ApiService {
     const dataProps = optionsSnapshot.method !== 'get' ? 'data' : 'params';
 
     if (this.emitEvents) {
-      GlobalEvents.emit(`${TAG}:request`, cloneDeep({
+      this.EventEmitter.emit(`${TAG}:request`, cloneDeep({
         url,
         data: dataSnapshot,
         options: optionsSnapshot
@@ -89,7 +92,7 @@ export class ApiService {
         }
 
         if (this.emitEvents) {
-          GlobalEvents.emit(`${TAG}:response`, cloneDeep({
+          this.EventEmitter.emit(`${TAG}:response`, cloneDeep({
             url,
             response: RS,
             data: rsData,
@@ -140,7 +143,7 @@ export class ApiService {
         }
 
         if (this.emitEvents) {
-          GlobalEvents.emit(`${TAG}:error`, cloneDeep({
+          this.EventEmitter.emit(`${TAG}:error`, cloneDeep({
             url,
             response: ERR,
             error: errData,
