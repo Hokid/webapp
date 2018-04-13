@@ -1,7 +1,7 @@
 {
-  "name": "@hokid/webapp-service-utils",
-  "version": "0.3.0",
-  "description": "set of utils",
+  "name": "@hokid/webapp-service-vuefycations",
+  "version": "0.0.1",
+  "description": "catch events and trigger notifications. it use vue, buefy and eventemitter",
   "main": "commonjs/index.js",
   "publishConfig": {
     "access": "public"
@@ -45,5 +45,10 @@
     "babel-loader": "^8.0.0-beta.0",
     "webpack": "^4.1.0",
     "webpack-cli": "^2.0.10"
+  },
+  "peerDependencies": {
+    "buefy": "^0.6.3",
+    "bulma": "^0.6.2",
+    "vue": "^2.5.13"
   }
 }
