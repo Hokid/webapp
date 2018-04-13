@@ -5,16 +5,19 @@ let events;
 
 function initialize () {
   events.forEach((item) => {
-    const toast = Object.assign({}, defaultSettings, item.toast);
     EventEmitter.on(item.name, () => {
-      if (typeof toast === 'function') {
-        const options = toast(arguments);
+      let options;
+	
+      if (typeof item.toast === 'function') {
+        options = item.toast(arguments);
+      } else {
+	options = item.toast;        
+      }
 
-        if (options && options.message) {
-          $Vue.$toast.open(options)
-        }
-      } else if (toast.message) {
-        $Vue.$toast.open(toast)
+      options = Object.assign({}, defaultSettings, options);
+      
+      if (options && options.message) {
+        $Vue.$toast.open(options)
       }
     });
   });

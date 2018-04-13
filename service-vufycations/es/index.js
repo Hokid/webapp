@@ -1,6 +1,6 @@
 import _typeof from "@babel/runtime/helpers/typeof";
-import "core-js/modules/es6.function.name";
 import "core-js/modules/es6.object.assign";
+import "core-js/modules/es6.function.name";
 var $Vue;
 var EventEmitter;
 var defaultSettings;
@@ -9,16 +9,19 @@ var events;
 function initialize() {
   var _arguments = arguments;
   events.forEach(function (item) {
-    var toast = Object.assign({}, defaultSettings, item.toast);
     EventEmitter.on(item.name, function () {
-      if (typeof toast === 'function') {
-        var options = toast(_arguments);
+      var options;
 
-        if (options && options.message) {
-          $Vue.$toast.open(options);
-        }
-      } else if (toast.message) {
-        $Vue.$toast.open(toast);
+      if (typeof item.toast === 'function') {
+        options = item.toast(_arguments);
+      } else {
+        options = item.toast;
+      }
+
+      options = Object.assign({}, defaultSettings, options);
+
+      if (options && options.message) {
+        $Vue.$toast.open(options);
       }
     });
   });
