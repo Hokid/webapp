@@ -1,5 +1,5 @@
 {
-  "name": "@hokid/webapp-service-vuefycations",
+  "name": "@hokid/webapp-service-vufycations",
   "version": "0.0.1",
   "description": "catch events and trigger notifications. it use vue, buefy and eventemitter",
   "main": "commonjs/index.js",
