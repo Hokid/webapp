@@ -1,0 +1,32 @@
+// http://compass-style.org/reference/compass/typography/text/ellipsis/#mixin-ellipsis
+=ellipsis($no-wrap: true)
+  @if $no-wrap
+    white-space: nowrap
+
+  overflow: hidden
+  text-overflow: ellipsis
+
+=button-reset
+  border: 0
+  box-shadow: none
+  text-align: left
+  background: none
+
+  &:focus
+    outline: none
+
+=rounded-btn-gradient
+  background: linear-gradient(331deg, rgba(104, 142, 222, 1) 0%, rgba(61, 71, 94, 1) 77%, rgba(61, 71, 94, 1) 100%)
+
+=placeholder
+  &.placeholder
+    @content
+
+  &:-moz-placeholder
+    @content
+
+  &::-moz-placeholder
+    @content
+
+  &::-webkit-input-placeholder
+    @content

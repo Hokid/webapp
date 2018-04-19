@@ -1,0 +1,18 @@
+.panel-scroll-box
+  border: $panel-item-border
+  border-top: 0
+  overflow: auto
+
+  &.is-200
+    height: 200px
+
+  &.is-300
+    height: 300px
+
+  > .panel-block:first-child
+    border-top: 0
+  > .panel-block:last-child
+    border-bottom: 0
+  > .panel-block
+    border-left: 0
+    border-right: 0
