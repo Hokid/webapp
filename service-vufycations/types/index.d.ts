@@ -1,1 +1,1 @@
-declare module '@hokid/webapp-service-api';
+declare module '@hokid/webapp-service-vufycations';
