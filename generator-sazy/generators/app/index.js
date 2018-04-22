@@ -8,6 +8,7 @@ module.exports = class extends Generator {
     this.installBulma = true;
     this.installModori = true;
     this.installMdi = true;
+    this.buefyPresets = true;
     this.destination = 'assets/sass/';
   }
   async prompting() {
@@ -20,7 +21,7 @@ module.exports = class extends Generator {
           { name: 'Bulma', value: 'installBulma', checked: this.installBulma },
           { name: 'Modori', value: 'installModori', checked: this.installModori },
           { name: 'Material Design Icons', value: 'installMdi', checked: this.installMdi }
-          { name: 'Buefy presets (you should install lib manually)', value: 'buefy', checked: this.installMdi }
+          { name: 'Buefy presets (you should install lib manually)', value: 'buefy', checked: this.buefyPresets }
         ]
       },
       {
