@@ -99,7 +99,7 @@ module.exports = class extends Generator {
     }
 
     if (this.lodash) {
-      this.dependencies.push('lodash');
+      this.dependencies.push('lodash', '@types/lodash');
     }
 
     if (this.moment) {
@@ -110,7 +110,11 @@ module.exports = class extends Generator {
       this.destinationPath('tsconfig.json'),
       {
         compilerOptions: {
-          module: "esnext"
+          module: "esnext",
+          lib: [
+            "dom",
+            "es2017"
+          ],
         }
       }
     );
@@ -160,7 +164,7 @@ module.exports = class extends Generator {
           this.destinationPath('src/store.ts'),
           this.destinationPath('src/views/Home.vue'),
           this.destinationPath('src/views/About.vue'),
-          this.destinationPath('src/components/**/*')
+          this.destinationPath('src/components/')
         ]
       )
     }
@@ -251,7 +255,7 @@ module.exports = class extends Generator {
         this.templatePath(this.language + '/.editorconfig'),
         this.templatePath(this.language + '/.env'),
         this.templatePath(this.language + '/.env.local'),
-        this.templatePath(this.language + '/.webpack.config.webstorm'),
+        this.templatePath(this.language + '/.webpack.config.webstorm.js'),
         this.templatePath(this.language + '/vue.config.js'),
       ],
       this.destinationPath(),
