@@ -20,6 +20,7 @@ module.exports = class extends Generator {
           { name: 'Bulma', value: 'installBulma', checked: this.installBulma },
           { name: 'Modori', value: 'installModori', checked: this.installModori },
           { name: 'Material Design Icons', value: 'installMdi', checked: this.installMdi }
+          { name: 'Buefy presets (you should install lib manually)', value: 'buefy', checked: this.installMdi }
         ]
       },
       {
@@ -35,6 +36,7 @@ module.exports = class extends Generator {
     this.installBulma = answers.feats.includes('installBulma');
     this.installModori = answers.feats.includes('installModori');
     this.installMdi = answers.feats.includes('installMdi');
+    this.buefyPresets = answers.feats.includes('buefy');
     this.destination = this.destinationPath(answers.dest);
   }
 
@@ -42,7 +44,8 @@ module.exports = class extends Generator {
     const options = {
       installBulma: this.installBulma,
       installModori: this.installModori,
-      installMdi: this.installMdi
+      installMdi: this.installMdi,
+      buefyPresets: this.buefyPresets
     };
 
     // _env

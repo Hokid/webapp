@@ -1,7 +1,8 @@
 @import ./_env/import
 <% if (installModori) { %>@import ./vendors/modori<% } %>
 <% if (installBulma) { %>@import ./vendors/bulma/import<% } %>
-<% if (installMdi) { %>@import ~mdi/scss/materialdesignicons.scss<% } %>
+<% if (installMdi) { %>@import ~mdi/css/materialdesignicons.css<% } %>
+<% if (buefyPresets) { %>@import ~buefy/lib/buefy.css<% } %>
 @import ./utils/import
 @import ./base/import
 @import ./layout/import
