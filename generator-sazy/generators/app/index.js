@@ -9,6 +9,7 @@ module.exports = class extends Generator {
     this.installModori = true;
     this.installMdi = true;
     this.buefyPresets = true;
+    this.vueLoadersPresets = true;
     this.destination = 'assets/sass/';
   }
   async prompting() {
@@ -22,6 +23,7 @@ module.exports = class extends Generator {
           { name: 'Modori', value: 'installModori', checked: this.installModori },
           { name: 'Material Design Icons', value: 'installMdi', checked: this.installMdi }
           { name: 'Buefy presets (you should install lib manually)', value: 'buefy', checked: this.buefyPresets }
+          { name: 'VueLoaders presets (you should install lib manually)', value: 'vueLoaders', checked: this.vueLoadersPresets }
         ]
       },
       {
@@ -38,6 +40,7 @@ module.exports = class extends Generator {
     this.installModori = answers.feats.includes('installModori');
     this.installMdi = answers.feats.includes('installMdi');
     this.buefyPresets = answers.feats.includes('buefy');
+    this.vueLoadersPresets = answers.feats.includes('vueLoaders');
     this.destination = this.destinationPath(answers.dest);
   }
 
@@ -47,6 +50,7 @@ module.exports = class extends Generator {
       installModori: this.installModori,
       installMdi: this.installMdi,
       buefyPresets: this.buefyPresets
+      vueLoadersPresets: this.vueLoadersPresets
     };
 
     // _env
