@@ -1,6 +1,6 @@
 {
   "name": "@hokid/generator-axo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Yoman generator. Generates base of api layer base of axios.",
   "main": "generators/app/index.js",
   "publishConfig": {

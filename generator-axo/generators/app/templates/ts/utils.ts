@@ -10,28 +10,30 @@ export function transformResponseToErrorModel(
     message: 'error has no description',
   };
 
-  if (error.response) {
-    if (error.response.data) {
-      if (error.response.data.error) {
-        let message = error.response.data.error.message as string;
-        let code = error.response.data.error.code as number;
+  if (
+    error.response
+    &&
+    error.response.data
+    &&
+    typeof error.response.data.error === 'object'
+  ) {
+    let message = error.response.data.error.message as string;
+    let code = error.response.data.error.code as number;
 
-        if (message != null) {
-          if (typeof message === 'object') {
-            message = JSON.stringify(message);
-          }
-        } else {
-          message = error.response.statusText || model.message;
-        }
-
-        if (code == null) {
-          code = error.response.status;
-        }
-
-        model.code = code as number;
-        model.message = message as string;
+    if (message != null) {
+      if (typeof message === 'object') {
+        message = JSON.stringify(message);
       }
+    } else {
+      message = error.response.statusText || model.message;
     }
+
+    if (code == null) {
+      code = error.response.status;
+    }
+
+    model.code = code as number;
+    model.message = message as string;
   } else if (error.request) {
     model.code = error.request.status;
     model.message = error.request.statusText;
@@ -51,7 +53,6 @@ export function transformResponseToErrorModel(
 
   return response;
 }
-
 
 
 export function responseToModel(Model: { new (model: any): any }) {
