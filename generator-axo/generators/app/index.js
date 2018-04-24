@@ -53,6 +53,7 @@ module.exports = class extends Generator {
     );
     this.fs.copy(
       [
+        this.templatePath(this.language + '/interceptors.ts'),
         this.templatePath(this.language + '/utils.ts'),
         this.templatePath(this.language + '/Base.ts')
       ],
