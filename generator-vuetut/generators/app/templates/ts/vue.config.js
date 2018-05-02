@@ -9,10 +9,28 @@ module.exports = {
   // compiler: true,
   lintOnSave: false,
   chainWebpack: chainableConfig => {
-    // modify config with webpack-chain
+     // modify config with webpack-chain
     // https://github.com/mozilla-neutrino/webpack-chain
+    // https://www.mistergoodcat.com/post/the-joy-that-is-source-maps-with-vuejs-and-typescript
 
-    chainableConfig.devtool("#cheap-module-source-map");
+    const a = info => {
+      let $filename = 'sources://' + info.resourcePath;
+      if (info.resourcePath.match(/\.vue$/) && !info.allLoaders.match(/type=script/)) {
+        $filename = 'webpack-generated:///' + info.resourcePath + '?' + info.hash;
+      }
+      return $filename;
+    };
+
+    const b = "webpack:///[resource-path]?[hash]";
+    const c = "#eval-source-map";
+
+    chainableConfig
+      .devtool(c);
+
+    chainableConfig
+      .output
+        .devtoolModuleFilenameTemplate(a)
+        .devtoolFallbackModuleFilenameTemplate(b);
   },
   historyApiFallback: {
       verbose: false,
@@ -21,13 +39,11 @@ module.exports = {
       ]
     },
   devServer: {
-    proxy: {
-<% if (nodeServerPresets) { %>
+    proxy: {<% if (nodeServerPresets) { %>
       "/api": {
         logLevel: "debug",
         target: "http://localhost:3000"
       },
-<% } %>
-    }
+    <% } %>}
   }
 };

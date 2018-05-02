@@ -46,13 +46,13 @@ module.exports = class extends Generator {
         choices: [
           { name: 'Vuex', value: 'vuex', checked: this.vuex },
           { name: 'Vue Router', value: 'vueRouter', checked: this.vueRouter },
-          { name: 'Sass presets', value: 'sass', checked: this.sassPresets },
+          { name: 'Sass presets (installed via generator-sazy)', value: 'sass', checked: this.sassPresets },
           { name: 'Vuefycations (require buefy)', value: 'vufycationsPkg', checked: this.vufycationsPkg },
           { name: 'Lodash', value: 'lodash', checked: this.lodash },
           { name: 'Moment', value: 'moment', checked: this.moment },
           { name: 'Buefy', value: 'buefy', checked: this.buefyPkg },
           { name: 'Vue Loaders', value: 'vueLoaders', checked: this.vueLoadersPkg },
-          { name: 'Node server', value: 'nodeServer', checked: this.nodeServerPresets },
+          { name: 'Node.js server (installed via generator-moser)', value: 'nodeServer', checked: this.nodeServerPresets },
           { name: 'Dockerfile', value: 'docker', checked: this.dockerFile }
         ]
       },
