@@ -125,7 +125,7 @@ module.exports = class extends Generator {
     }
 
     if (this.installMdi) {
-      deps.push('mdi');
+      deps.push('@mdi/font');
     }
 
     if (deps.length) {
