@@ -112,8 +112,11 @@ module.exports = class extends Generator {
         compilerOptions: {
           module: "esnext",
           lib: [
+            "es2015",
+            "es2017",
             "dom",
-            "es2017"
+            "dom.iterable",
+            "scripthost"
           ],
         }
       }

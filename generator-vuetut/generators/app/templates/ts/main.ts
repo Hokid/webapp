@@ -7,12 +7,11 @@ import VufycationsConfig from "@/services/Vufycations";
 <% } %>
 
 import App from './App.vue';
-import {
+<% if (vuex || vueRouter){ %>import {
   <% if (vuex) { %>store,<% } %>
   <% if (vueRouter) { %>router,<% } %>
-} from './services';
+} from './services';<% } %>
 import './registerServiceWorker';
-import {router, store} from "./services";
 
 Vue.config.productionTip = false;
 
