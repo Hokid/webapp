@@ -21,8 +21,8 @@ module.exports = class extends Generator {
         choices: [
           { name: 'Bulma', value: 'installBulma', checked: this.installBulma },
           { name: 'Modori', value: 'installModori', checked: this.installModori },
-          { name: 'Material Design Icons', value: 'installMdi', checked: this.installMdi }
-          { name: 'Buefy presets (you should install lib manually)', value: 'buefy', checked: this.buefyPresets }
+          { name: 'Material Design Icons', value: 'installMdi', checked: this.installMdi },
+          { name: 'Buefy presets (you should install lib manually)', value: 'buefy', checked: this.buefyPresets },
           { name: 'VueLoaders presets (you should install lib manually)', value: 'vueLoaders', checked: this.vueLoadersPresets }
         ]
       },
