@@ -1,6 +1,6 @@
 {
   "name": "@hokid/generator-userfy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Yoman generator. Generates user service.",
   "main": "generators/app/index.js",
   "publishConfig": {

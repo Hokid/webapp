@@ -1,4 +1,4 @@
-import Router from 'vue-router';
+import Router, {NavigationGuard} from 'vue-router';
 import {
   AUTH_STATE_NO_AUTH,
   AUTH_STATE_AUTH_SUCCESS,
@@ -92,20 +92,21 @@ class UserService {
 }
 
 
-function patchRouter (Router: Router, User: UserService) {
-  const resolveEnd = (to, from, next) => {
+function patchRouter (RouterInstance: Router, User: UserService, loginUrl = '/login') {
+  const resolveEnd: NavigationGuard = (to, from, next) => {
     if (to.meta.requireAuth === true && !User.isAuth()) {
-      next('/login', {
+      next({
+        path: loginUrl,
         query: {
-          redirect: to.fullPath
-        }
+          redirect: to.fullPath,
+        },
       });
     } else {
       next();
     }
   };
 
-  Router.beforeEach((to, from, next) => {
+  RouterInstance.beforeEach((to, from, next) => {
     if (!User.isAuth()) {
       if (User.token()) {
         return User.loginByToken(User.token())
@@ -120,11 +121,11 @@ function patchRouter (Router: Router, User: UserService) {
 
     resolveEnd(to, from, next);
   });
-};
+}
 
 
 
 export {
   UserService,
-  patchRouter
+  patchRouter,
 };
