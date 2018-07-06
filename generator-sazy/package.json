@@ -1,6 +1,6 @@
 {
   "name": "@hokid/generator-sazy",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Yoman generator. Generates directory structure for sass and install several libs.",
   "main": "generators/app/index.js",
   "publishConfig": {
