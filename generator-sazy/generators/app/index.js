@@ -49,7 +49,7 @@ module.exports = class extends Generator {
       installBulma: this.installBulma,
       installModori: this.installModori,
       installMdi: this.installMdi,
-      buefyPresets: this.buefyPresets
+      buefyPresets: this.buefyPresets,
       vueLoadersPresets: this.vueLoadersPresets
     };
 
