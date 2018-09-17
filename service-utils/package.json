@@ -1,6 +1,6 @@
 {
   "name": "@hokid/webapp-service-utils",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "set of utils",
   "main": "commonjs/index.js",
   "publishConfig": {
