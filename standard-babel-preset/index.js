@@ -13,17 +13,9 @@ module.exports = (context, options = {}) => {
   // pass options along to babel-preset-env
   presets.push([require('@babel/preset-env'), envOptions])
 
-  // stage 2. This includes some important transforms, e.g. dynamic import
-  // and rest object spread.
-  presets.push([require('@babel/preset-stage-2'), {
-    useBuiltIns: true
-  }])
-
   // transform runtime, but only for helpers
   plugins.push([require('@babel/plugin-transform-runtime'), {
-    polyfill: false,
-    regenerator: false,
-    moduleName: '@babel/runtime'
+    regenerator: false
   }])
 
   return {
