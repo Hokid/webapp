@@ -1,6 +1,6 @@
 {
   "name": "@hokid/babel-preset-webapp-standard",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "standart babel-preset",
   "main": "index.js",
   "author": "Kirill Horoshilov <mr.hokid@gmail.com>",
