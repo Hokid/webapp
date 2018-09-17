@@ -1,3 +1,5 @@
+import "core-js/modules/es6.array.fill";
+import "core-js/modules/es6.regexp.to-string";
 export function RRGGBB(exclude) {
   var eLn = Array.isArray(exclude) ? exclude.length : 0;
   var max = 0xffffff - eLn;
@@ -13,5 +15,6 @@ export function RRGGBB(exclude) {
     }
   }
 
-  return rand.toString(16);
+  var result = rand.toString(16);
+  return "".concat(new Array(6 - result.length).fill('0').join('')).concat(color);
 }
