@@ -14,5 +14,5 @@ export function RRGGBB(exclude) {
 
   const result = rand.toString(16);
 
-  return `${new Array(6 - result.length).fill('0').join('')}${color}`;
+  return `${new Array(6 - result.length).fill('0').join('')}${result}`;
 }
