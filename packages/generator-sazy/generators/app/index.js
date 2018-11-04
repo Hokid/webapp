@@ -10,8 +10,10 @@ module.exports = class extends Generator {
     this.installMdi = true;
     this.buefyPresets = true;
     this.vueLoadersPresets = true;
-    this.destination = 'assets/sass/';
+    this.destination = 'src/assets/sass/';
+    this.root = null;
   }
+
   async prompting() {
     const prompts = [
       {
@@ -29,7 +31,7 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'dest',
         message: 'Enter sass directory to extract template',
-        default: 'assets/sass/'
+        default: this.destination
       }
     ];
 
@@ -37,9 +39,12 @@ module.exports = class extends Generator {
 
     this.installBulma = answers.feats.includes('installBulma');
     this.installModori = answers.feats.includes('installModori');
-    this.buefyPresets = answers.feats.includes('buefy');
-    this.vueLoadersPresets = answers.feats.includes('vueLoaders');
+    this.root = this.destinationPath();
     this.destination = this.destinationPath(answers.dest);
+  }
+
+  configuring() {
+    this.destinationRoot(this.destination);
   }
 
   writing() {
@@ -54,38 +59,38 @@ module.exports = class extends Generator {
     // _env
     this.fs.copyTpl(
       this.templatePath('_env/**/*'),
-      this.destination + '_env/',
+     this.destinationPath('_env/'),
       options
     );
     // base
     this.fs.copyTpl(
       this.templatePath('base/**/*'),
-      this.destination + 'base/',
+     this.destinationPath('base/'),
       options
     );
     // components
     this.fs.copyTpl(
       this.templatePath('components/**/*'),
-      this.destination + 'components/',
+     this.destinationPath('components/'),
       options
     );
     // layout
     this.fs.copyTpl(
       this.templatePath('layout/**/*'),
-      this.destination + 'layout/',
+     this.destinationPath('layout/'),
       options
     );
     // utils
     this.fs.copyTpl(
       this.templatePath('utils/**/*'),
-      this.destination + 'utils/',
+     this.destinationPath('utils/'),
       options
     );
     // bulma
     if (this.installBulma) {
       this.fs.copyTpl(
         this.templatePath('vendors/bulma/**/*'),
-        this.destination + 'vendors/bulma/',
+       this.destinationPath('vendors/bulma/'),
         options
       );
     }
@@ -93,25 +98,27 @@ module.exports = class extends Generator {
     if (this.installModori) {
       this.fs.copyTpl(
         this.templatePath('vendors/modori.sass'),
-        this.destination + 'vendors/modori.sass',
+       this.destinationPath('vendors/modori.sass'),
         options
       );
     }
     // readme
     this.fs.copyTpl(
       this.templatePath('README.md'),
-      this.destination + 'README.md',
+     this.destinationPath('README.md'),
       options
     );
     // main
     this.fs.copyTpl(
       this.templatePath('App.sass'),
-      this.destination + 'App.sass',
+     this.destinationPath('App.sass'),
       options
     );
   }
 
   install() {
+    this.destinationRoot(this.root);
+
     const deps = [];
 
     if (this.installBulma) {
