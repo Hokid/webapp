@@ -21,6 +21,7 @@ export function addMainPageRoute(/*User: UserService, */RouterInst: Router) {
 
 export default new Router({
   mode: 'history',
+  base: process.env.BASE_URL,
   routes: [
     // {
     //   path: '/',

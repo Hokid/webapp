@@ -1,4 +1,5 @@
 export interface Services {
+  // define services here
 }
 
 export interface $style {
