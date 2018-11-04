@@ -1,7 +1,0 @@
-export var AUTH_STATE_NO_AUTH = 0;
-export var AUTH_STATE_AUTH_PROCESS = 1;
-export var AUTH_STATE_AUTH_SUCCESS = 2;
-export var AUTH_STATE_AUTH_FAIL = 3;
-export var STORE_AUTH_STATE = 'STORE_AUTH_STATE';
-export var STORE_UPDATE = 'STORE_UPDATE';
-export var STORE_RESET = 'STORE_RESET';

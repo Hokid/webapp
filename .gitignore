@@ -1,3 +1,8 @@
 node_modules
-@tmp
-@dev
+@tmp/
+@dev/
+.idea/
+packages/**/esnext/**/*
+packages/**/es/**/*
+packages/**/commonjs/**/*
+packages/**/build/**/*

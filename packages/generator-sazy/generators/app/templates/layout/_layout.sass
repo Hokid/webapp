@@ -1,0 +1,42 @@
+#app
+  display: flex
+
+.l-root
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  width: 100%
+  &.is-footer-sticky
+    > .l-content
+      flex-grow: 1
+
+.l-header
+  position: fixed
+  left: 0
+  top: 0
+  right: 0
+  z-index: 40
+
+.l-content
+  padding-top: 80px
+  position: relative
+  &.is-fill-free-space
+    flex-grow: 1
+  > .is-fill-free-space
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+
+.l-footer
+
+.l-container
+  width: $container-width-mobile
+  margin: 0 auto
+
+  &:lang(ar)
+    direction: ltr
+
+  +desktop
+    width: $container-width-desktop

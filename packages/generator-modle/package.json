@@ -1,0 +1,26 @@
+{
+  "name": "@hokid/generator-modle",
+  "version": "0.0.1",
+  "description": "Yoman generator. Generates models dir.",
+  "main": "generators/app/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "generators"
+  ],
+  "scripts": {},
+  "author": "Kirill Horoshilov <mr.hokid@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/Hokid/webapp.git",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hokid/webapp.git"
+  },
+  "dependencies": {
+    "yeoman-generator": "^2.0.4"
+  }
+}
