@@ -22,9 +22,7 @@ module.exports = class extends Generator {
         message: 'Which additional features would you like to include?',
         choices: [
           { name: 'Bulma', value: 'installBulma', checked: this.installBulma },
-          { name: 'Modori', value: 'installModori', checked: this.installModori },
-          { name: 'Buefy presets (you should install lib manually)', value: 'buefy', checked: this.buefyPresets },
-          { name: 'VueLoaders presets (you should install lib manually)', value: 'vueLoaders', checked: this.vueLoadersPresets }
+          { name: 'Modori', value: 'installModori', checked: this.installModori }
         ]
       },
       {
@@ -51,9 +49,7 @@ module.exports = class extends Generator {
     const options = {
       installBulma: this.installBulma,
       installModori: this.installModori,
-      installMdi: this.installMdi,
-      buefyPresets: this.buefyPresets,
-      vueLoadersPresets: this.vueLoadersPresets
+      installMdi: this.installMdi
     };
 
     // _env
