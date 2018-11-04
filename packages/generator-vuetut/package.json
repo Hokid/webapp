@@ -1,6 +1,6 @@
 {
   "name": "@hokid/generator-vuetut",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Yoman generator. Setup another configuration based on vue template.",
   "main": "generators/app/index.js",
   "publishConfig": {
